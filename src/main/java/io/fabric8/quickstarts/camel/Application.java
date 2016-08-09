@@ -15,16 +15,51 @@
  */
 package io.fabric8.quickstarts.camel;
 
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * The Spring-boot main class.
  */
+@Configuration
 @SpringBootApplication
-public class Application {
+public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+    }
+
+    @Bean
+    public ServletRegistrationBean servletRegistrationBean() {
+        ServletRegistrationBean servlet = new ServletRegistrationBean(new CamelHttpTransportServlet(), "/camel-rest-sql/*");
+        servlet.setName("CamelServlet");
+        return servlet;
+    }
+
+    @Component
+    public class RestRoute extends RouteBuilder {
+
+        @Override
+        public void configure() {
+            restConfiguration()
+                .contextPath("/camel-rest-sql")
+                .component("servlet")
+                .bindingMode(RestBindingMode.auto);
+
+            rest("/books")
+                .produces("text/plain")
+                .get()
+                .route()
+                .log("HELLO!")
+                .transform(constant("HELLO!"));
+        }
     }
 }
