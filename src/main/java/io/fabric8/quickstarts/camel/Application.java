@@ -23,13 +23,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-/**
- * The Spring-boot main class.
- */
-@Configuration
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
@@ -38,14 +33,14 @@ public class Application extends SpringBootServletInitializer {
     }
 
     @Bean
-    public ServletRegistrationBean servletRegistrationBean() {
+    ServletRegistrationBean servletRegistrationBean() {
         ServletRegistrationBean servlet = new ServletRegistrationBean(new CamelHttpTransportServlet(), "/camel-rest-sql/*");
         servlet.setName("CamelServlet");
         return servlet;
     }
 
     @Component
-    public class RestRoute extends RouteBuilder {
+    class RestApi extends RouteBuilder {
 
         @Override
         public void configure() {
@@ -58,12 +53,23 @@ public class Application extends SpringBootServletInitializer {
                 .component("servlet")
                 .bindingMode(RestBindingMode.auto);
 
-            rest("/hello").description("Hello REST service")
-                .produces("text/plain")
-                .get().description("Say hello")
-                    .route()
-                    .log("HELLO!")
-                    .transform(constant("HELLO!"));
+            rest("/books").description("Books REST service")
+                .consumes("application/json")
+                .produces("application/json")
+                .get("order/{id}").description("Fetches an order by id")
+                    .to("sql:select * from ORDERS where id = :#${header.id}?dataSource=dataSource&outputType=SelectOne");
+        }
+    }
+
+    @Component
+    class Backend extends RouteBuilder {
+
+        @Override
+        public void configure() {
+            from("timer:new-order?delay=1s&period=10s").routeId("generate-order")
+                .bean("orderService", "generateOrder")
+                .to("jpa:io.fabric8.quickstarts.camel.Order")
+                .log("Inserted new order ${body.id}");
         }
     }
 }
