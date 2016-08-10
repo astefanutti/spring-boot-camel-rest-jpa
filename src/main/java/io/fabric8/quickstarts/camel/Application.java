@@ -51,15 +51,19 @@ public class Application extends SpringBootServletInitializer {
         public void configure() {
             restConfiguration()
                 .contextPath("/camel-rest-sql")
+                .apiContextPath("/api-doc")
+                    .apiProperty("api.title", "Camel REST API")
+                    .apiProperty("api.version", "1.0")
+                    .apiProperty("cors", "true")
                 .component("servlet")
                 .bindingMode(RestBindingMode.auto);
 
-            rest("/books")
+            rest("/hello").description("Hello REST service")
                 .produces("text/plain")
-                .get()
-                .route()
-                .log("HELLO!")
-                .transform(constant("HELLO!"));
+                .get().description("Say hello")
+                    .route()
+                    .log("HELLO!")
+                    .transform(constant("HELLO!"));
         }
     }
 }

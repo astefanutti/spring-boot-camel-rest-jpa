@@ -71,7 +71,6 @@
   </dependencyManagement>
 
   <dependencies>
-
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring-boot-starter</artifactId>
@@ -87,6 +86,10 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jackson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-swagger-java</artifactId>
     </dependency>
 
     <!-- testing -->
@@ -120,6 +123,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -160,4 +164,63 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>swagger</id>
+      <properties>
+        <swagger-ui.version>2.1.5</swagger-ui.version>
+        <swagger.url>https://github.com/swagger-api/swagger-ui/archive</swagger.url>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>wagon-maven-plugin</artifactId>
+            <version>1.0</version>
+            <executions>
+              <execution>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>download-single</goal>
+                </goals>
+                <configuration>
+                  <url>${swagger.url}</url>
+                  <fromFile>v${swagger-ui.version}.tar.gz</fromFile>
+                  <toFile>${project.build.directory}/swagger-ui-${swagger-ui.version}.tar.gz</toFile>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>1.8</version>
+            <executions>
+              <execution>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target>
+                    <echo message="Decompress archive"/>
+                    <gunzip src="${project.build.directory}/swagger-ui-${swagger-ui.version}.tar.gz"/>
+                    <untar src="${project.build.directory}/swagger-ui-${swagger-ui.version}.tar"
+                           dest="${project.build.directory}"/>
+                    <echo message="moving resources"/>
+                    <move todir="${project.build.outputDirectory}/static" overwrite="yes">
+                      <fileset dir="${project.build.directory}/swagger-ui-${swagger-ui.version}/dist"/>
+                    </move>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>
