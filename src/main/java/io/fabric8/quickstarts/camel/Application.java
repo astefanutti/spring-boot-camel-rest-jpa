@@ -45,8 +45,7 @@ public class Application extends SpringBootServletInitializer {
         @Override
         public void configure() {
             restConfiguration()
-                .contextPath("/camel-rest-sql")
-                .apiContextPath("/api-doc")
+                .contextPath("/camel-rest-sql").apiContextPath("/api-doc")
                     .apiProperty("api.title", "Camel REST API")
                     .apiProperty("api.version", "1.0")
                     .apiProperty("cors", "true")
@@ -57,7 +56,7 @@ public class Application extends SpringBootServletInitializer {
                 .consumes("application/json")
                 .produces("application/json")
                 .get("order/{id}").description("Fetches an order by id")
-                    .to("sql:select * from ORDERS where id = :#${header.id}?dataSource=dataSource&outputType=SelectOne");
+                    .to("sql:select * from orders where id = :#${header.id}?dataSource=dataSource&outputType=SelectOne");
         }
     }
 
