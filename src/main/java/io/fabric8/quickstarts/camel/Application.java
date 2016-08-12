@@ -50,13 +50,14 @@ public class Application extends SpringBootServletInitializer {
                     .apiProperty("api.version", "1.0")
                     .apiProperty("cors", "true")
                 .component("servlet")
-                .bindingMode(RestBindingMode.auto);
+                .bindingMode(RestBindingMode.json);
 
             rest("/books").description("Books REST service")
-                .consumes("application/json")
-                .produces("application/json")
                 .get("order/{id}").description("Fetches an order by id")
-                    .to("sql:select * from orders where id = :#${header.id}?dataSource=dataSource&outputType=SelectOne");
+                    .outType(Order.class)
+                    .to("sql:select * from orders where id = :#${header.id}?" +
+                        "dataSource=dataSource&outputType=SelectOne&" +
+                        "outputClass=io.fabric8.quickstarts.camel.Order");
         }
     }
 
