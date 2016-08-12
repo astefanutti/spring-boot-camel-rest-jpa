@@ -1,0 +1,9 @@
+camel:
+  springboot:
+    name: CamelRestSql
+
+spring:
+  # Spring JDBC configuration
+  datasource:
+    # Let Spring Boot auto-configure an embedded HSQL database
+    url:

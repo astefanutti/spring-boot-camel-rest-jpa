@@ -1,0 +1,22 @@
+camel:
+  springboot:
+    name: CamelRestSql
+
+mysql:
+  service:
+    # The name of the service hosting the MySQL database server,
+    # can be customized using the 'MYSQL_SERVICE_NAME' env variable to use a different service
+    name:     mysql
+    # The database to use, can be customized using the 'MYSQL_SERVICE_DATABASE' env variable
+    database: sampledb
+
+spring:
+  # Spring JDBC configuration
+  datasource:
+    url:      jdbc:mysql://${${mysql.service.name}.service.host}:${mysql.service.port}/${mysql.service.database}
+    username: ${mysql.service.username}
+    password: ${mysql.service.password}
+
+  # Spring Data JPA configuration
+  jpa:
+    generate-ddl: true
