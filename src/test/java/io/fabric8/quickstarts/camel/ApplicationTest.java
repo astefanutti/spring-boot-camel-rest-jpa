@@ -28,7 +28,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +43,7 @@ public class ApplicationTest {
     private CamelContext camelContext;
 
     @Test
-    public void getOrderTest() throws IOException {
+    public void getOrderTest() {
         // Wait for maximum 2s until the first order gets inserted
         NotifyBuilder notify = new NotifyBuilder(camelContext)
             .fromRoute("generate-order")
@@ -53,7 +52,12 @@ public class ApplicationTest {
         assertThat(notify.matches(2, TimeUnit.SECONDS)).isTrue();
 
         // Then call the REST API
-        ResponseEntity<String> response = restTemplate.getForEntity("/camel-rest-sql/books/order/1", String.class);
+        ResponseEntity<Order> response = restTemplate.getForEntity("/camel-rest-sql/books/order/1", Order.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Order order = response.getBody();
+        assertThat(order.getId()).isEqualTo(1);
+        assertThat(order.getItem()).isEqualTo("Camel");
+        assertThat(order.getAmount()).isBetween(1, 10);
+        assertThat(order.getDescription()).isEqualTo("Camel in Action");
     }
 }
