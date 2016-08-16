@@ -15,13 +15,17 @@
  */
 package io.fabric8.quickstarts.camel;
 
+import org.apache.camel.component.jpa.Consumed;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
+@NamedQuery(name = "new-orders", query = "select order from Order order where order.processed = false")
 public class Order {
 
     @Id
@@ -31,6 +35,11 @@ public class Order {
     private int amount;
     private String description;
     private boolean processed;
+
+    @Consumed
+    public void setProcessed() {
+        processed = true;
+    }
 
     public int getId() {
         return id;

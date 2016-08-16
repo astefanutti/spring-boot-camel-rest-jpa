@@ -34,7 +34,8 @@ public class Application extends SpringBootServletInitializer {
 
     @Bean
     ServletRegistrationBean servletRegistrationBean() {
-        ServletRegistrationBean servlet = new ServletRegistrationBean(new CamelHttpTransportServlet(), "/camel-rest-sql/*");
+        ServletRegistrationBean servlet = new ServletRegistrationBean(
+            new CamelHttpTransportServlet(), "/camel-rest-sql/*");
         servlet.setName("CamelServlet");
         return servlet;
     }
@@ -66,10 +67,18 @@ public class Application extends SpringBootServletInitializer {
 
         @Override
         public void configure() {
-            from("timer:new-order?delay=1s&period=10s").routeId("generate-order")
+            // A first route generates some orders and queue them in DB
+            from("timer:new-order?delay=1s&period={{quickstart.generateOrderPeriod:2s}}")
+                .routeId("generate-order")
                 .bean("orderService", "generateOrder")
                 .to("jpa:io.fabric8.quickstarts.camel.Order")
                 .log("Inserted new order ${body.id}");
+
+            // A second route polls the DB for new orders and processes them
+            from("jpa:io.fabric8.quickstarts.camel.Order?" +
+                "consumer.namedQuery=new-orders&consumer.delay={{quickstart.processOrderPeriod:5s}}&consumeDelete=false")
+                .routeId("process-order")
+                .log("Processed order id ${body.id} item ${body.item} of ${body.amount} copies of ${body.description}");
         }
     }
 }

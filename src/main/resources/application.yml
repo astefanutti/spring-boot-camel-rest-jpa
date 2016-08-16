@@ -1,5 +1,6 @@
 camel:
   springboot:
+    # The Camel context name
     name: CamelRestSql
 
 mysql:
@@ -20,3 +21,8 @@ spring:
   # Spring Data JPA configuration
   jpa:
     generate-ddl: true
+
+# The application configuration properties
+quickstart:
+  generateOrderPeriod: 10s
+  processOrderPeriod: 30s
