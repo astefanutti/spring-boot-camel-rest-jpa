@@ -43,13 +43,16 @@ public class ApplicationTest {
     private CamelContext camelContext;
 
     @Test
-    public void getOrderTest() {
-        // Wait for maximum 2s until the first order gets inserted
+    public void newOrderTest() {
+        // Wait for maximum 5s until the first order gets inserted and processed
         NotifyBuilder notify = new NotifyBuilder(camelContext)
             .fromRoute("generate-order")
             .whenDone(1)
+            .and()
+            .fromRoute("process-order")
+            .whenDone(1)
             .create();
-        assertThat(notify.matches(2, TimeUnit.SECONDS)).isTrue();
+        assertThat(notify.matches(5, TimeUnit.SECONDS)).isTrue();
 
         // Then call the REST API
         ResponseEntity<Order> response = restTemplate.getForEntity("/camel-rest-sql/books/order/1", Order.class);
@@ -59,5 +62,6 @@ public class ApplicationTest {
         assertThat(order.getItem()).isEqualTo("Camel");
         assertThat(order.getAmount()).isBetween(1, 10);
         assertThat(order.getDescription()).isEqualTo("Camel in Action");
+        assertThat(order.isProcessed()).isTrue();
     }
 }
