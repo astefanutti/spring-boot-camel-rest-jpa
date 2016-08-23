@@ -36,11 +36,11 @@
 
     <!-- configure the versions you want to use here -->
     <camel.version>2.17.3</camel.version>
-    <fabric8.version>2.2.148</fabric8.version>
+    <fabric8.version>2.2.152</fabric8.version>
     <spring-boot.version>1.4.0.RELEASE</spring-boot.version>
 
-    <!-- maven plugin versions -->
-    <fabric8.maven.plugin.version>3.1.11</fabric8.maven.plugin.version>
+    <!-- Maven plugin versions -->
+    <fabric8.maven.plugin.version>3.1.12</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
   </properties>
@@ -100,10 +100,6 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-jpa</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-sql</artifactId>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>

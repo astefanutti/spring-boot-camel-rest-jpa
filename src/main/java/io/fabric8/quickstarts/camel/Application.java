@@ -18,6 +18,7 @@ package io.fabric8.quickstarts.camel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -43,6 +44,12 @@ public class Application extends SpringBootServletInitializer {
     @Component
     class RestApi extends RouteBuilder {
 
+        @Autowired
+        private BookRepository books;
+
+        @Autowired
+        private OrderRepository orders;
+
         @Override
         public void configure() {
             restConfiguration()
@@ -50,15 +57,20 @@ public class Application extends SpringBootServletInitializer {
                     .apiProperty("api.title", "Camel REST API")
                     .apiProperty("api.version", "1.0")
                     .apiProperty("cors", "true")
+                    .apiContextRouteId("doc-api")
                 .component("servlet")
                 .bindingMode(RestBindingMode.json);
 
             rest("/books").description("Books REST service")
-                .get("order/{id}").description("Fetches an order by id")
-                    .outType(Order.class)
-                    .to("sql:select * from orders where id = :#${header.id}?" +
-                        "dataSource=dataSource&outputType=SelectOne&" +
-                        "outputClass=io.fabric8.quickstarts.camel.Order");
+                .get("/").description("The list of all the book names")
+                    .route().routeId("books-api")
+                    // TODO: use the bean EIP
+                    .process(exchange -> exchange.getIn().setBody(books.findAll()))
+                    .endRest()
+                .get("order/{id}").description("Details of an order by id")
+                    .route().routeId("order-api")
+                    // TODO: use the bean EIP
+                    .process(exchange -> exchange.getIn().setBody(orders.findOne(exchange.getIn().getHeader("id", Integer.class))));
         }
     }
 
@@ -78,7 +90,7 @@ public class Application extends SpringBootServletInitializer {
             from("jpa:io.fabric8.quickstarts.camel.Order?" +
                 "consumer.namedQuery=new-orders&consumer.delay={{quickstart.processOrderPeriod:5s}}&consumeDelete=false")
                 .routeId("process-order")
-                .log("Processed order id ${body.id} item ${body.item} of ${body.amount} copies of ${body.description}");
+                .log("Processed order #id ${body.id} with ${body.amount} copies of the «${body.book.description}» book");
         }
     }
 }

@@ -20,7 +20,10 @@ spring:
 
   # Spring Data JPA configuration
   jpa:
-    generate-ddl: true
+    hibernate:
+      # To be updated in real production usage!
+      ddl-auto: create-drop
+    show-sql: false
 
 # The application configuration properties
 quickstart:

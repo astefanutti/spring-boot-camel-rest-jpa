@@ -59,9 +59,9 @@ public class ApplicationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Order order = response.getBody();
         assertThat(order.getId()).isEqualTo(1);
-        assertThat(order.getItem()).isEqualTo("Camel");
         assertThat(order.getAmount()).isBetween(1, 10);
-        assertThat(order.getDescription()).isEqualTo("Camel in Action");
+        assertThat(order.getBook().getItem()).isIn("Camel", "ActiveMQ");
+        assertThat(order.getBook().getDescription()).isIn("Camel in Action", "ActiveMQ in Action");
         assertThat(order.isProcessed()).isTrue();
     }
 }
