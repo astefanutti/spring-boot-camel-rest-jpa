@@ -18,7 +18,6 @@ package io.fabric8.quickstarts.camel;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.apache.camel.model.rest.RestBindingMode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -44,12 +43,6 @@ public class Application extends SpringBootServletInitializer {
     @Component
     class RestApi extends RouteBuilder {
 
-        @Autowired
-        private BookRepository books;
-
-        @Autowired
-        private OrderRepository orders;
-
         @Override
         public void configure() {
             restConfiguration()
@@ -62,15 +55,13 @@ public class Application extends SpringBootServletInitializer {
                 .bindingMode(RestBindingMode.json);
 
             rest("/books").description("Books REST service")
-                .get("/").description("The list of all the book names")
+                .get("/").description("The list of all the books")
                     .route().routeId("books-api")
-                    // TODO: use the bean EIP
-                    .process(exchange -> exchange.getIn().setBody(books.findAll()))
+                    .bean(Database.class, "findBooks")
                     .endRest()
                 .get("order/{id}").description("Details of an order by id")
                     .route().routeId("order-api")
-                    // TODO: use the bean EIP
-                    .process(exchange -> exchange.getIn().setBody(orders.findOne(exchange.getIn().getHeader("id", Integer.class))));
+                    .bean(Database.class, "findOrder(${header.id})");
         }
     }
 
