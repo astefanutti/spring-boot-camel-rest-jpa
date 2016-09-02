@@ -1,6 +1,6 @@
 camel:
   springboot:
-    name: CamelRestSql
+    name: CamelRestJpa
 
 quickstart:
   generateOrderPeriod: 1s

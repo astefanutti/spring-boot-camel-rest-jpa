@@ -1,7 +1,7 @@
 camel:
   springboot:
     # The Camel context name
-    name: CamelRestSql
+    name: CamelRestJpa
 
 spring:
   # Spring JDBC configuration
