@@ -23,11 +23,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.fabric8.quickstarts</groupId>
-  <artifactId>spring-boot-camel-rest-sql</artifactId>
+  <artifactId>spring-boot-camel-rest-jpa</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>Fabric8 :: Quickstarts :: Spring-Boot :: Camel REST / SQL</name>
-  <description>Shows how to use Camel REST / SQL with Spring Boot</description>
+  <name>Fabric8 :: Quickstarts :: Spring-Boot :: Camel REST / JPA</name>
+  <description>Shows how to use Camel REST / JPA with Spring Boot</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
