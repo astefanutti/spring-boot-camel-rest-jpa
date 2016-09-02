@@ -39,8 +39,8 @@ Spring Boot profile in case you have a MySQL server available for you to test.
 
 You can then access the REST API directly from your Web browser, e.g.:
 
-- <http://localhost:8080/camel-rest-sql/books>
-- <http://localhost:8080/camel-rest-sql/books/order/1>
+- <http://localhost:8080/camel-rest-jpa/books>
+- <http://localhost:8080/camel-rest-jpa/books/order/1>
 
 ### Running the example in Kubernetes
 
@@ -84,9 +84,9 @@ When the example is running, a REST service is available to list the books
 that can be ordered, and as well the order statuses.
 
 If you run the example on a local Fabric8 installation using Vagrant,
-then the REST service is exposed at <http://qs-camel-rest-sql.vagrant.f8>.
+then the REST service is exposed at <http://qs-camel-rest-jpa.vagrant.f8>.
 
-The actual endpoint is using the _context-path_ `camel-rest-sql/books` and
+The actual endpoint is using the _context-path_ `camel-rest-jpa/books` and
 the REST service provides two services:
 
 - `books`: to list all the available books that can be ordered,
@@ -97,14 +97,14 @@ starting from 1.
 
 You can then access these services from your Web browser, e.g.:
 
-- <http://qs-camel-rest-sql.vagrant.f8/camel-rest-sql/books>
-- <http://qs-camel-rest-sql.vagrant.f8/camel-rest-sql/books/order/1>
+- <http://qs-camel-rest-jpa.vagrant.f8/camel-rest-jpa/books>
+- <http://qs-camel-rest-jpa.vagrant.f8/camel-rest-jpa/books/order/1>
 
 ### Swagger API
 
 The example provides API documentation of the service using Swagger using
-the _context-path_ `camel-rest-sql/api-doc`. You can access the API documentation
-from your Web browser at <http://qs-camel-rest-sql.vagrant.f8/camel-rest-sql/api-doc>.
+the _context-path_ `camel-rest-jpa/api-doc`. You can access the API documentation
+from your Web browser at <http://qs-camel-rest-jpa.vagrant.f8/camel-rest-jpa/api-doc>.
 
 ### More details
 
