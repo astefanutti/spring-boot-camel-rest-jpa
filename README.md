@@ -1,6 +1,6 @@
 # Spring Boot Camel REST / JPA Example
 
-This example demonstrates how to use SQL via JDBC along with Camel's REST DSL
+This example demonstrates how to use JPA and Camel's REST DSL
 to expose a RESTful API that performs CRUD operations on a database.
 
 It generates orders for books referenced in database at a regular pace.
@@ -33,7 +33,7 @@ The example can be run locally using the following Maven goal:
 Alternatively, you can run the application locally using the executable
 JAR produced:
 
-    $ java -jar -Dspring.profiles.active=dev target/spring-boot-camel-rest-sql-${project.version}.jar
+    $ java -jar -Dspring.profiles.active=dev target/spring-boot-camel-rest-jpa-${project.version}.jar
 
 This uses an embedded in-memory HSQLDB database. You can use the default
 Spring Boot profile in case you have a MySQL server available for you to test.
