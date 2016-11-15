@@ -7,6 +7,12 @@ management:
   # Binding health checks to a different port
   port: 8081
 
+# Disable all management endpoints except but health checks
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+
 mysql:
   service:
     # The name of the service hosting the MySQL database server,
