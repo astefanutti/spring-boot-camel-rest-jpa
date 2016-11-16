@@ -91,21 +91,15 @@ You can use the Kubernetes or OpenShift client tool to inspect the status, e.g.:
     $ oc logs <pod_name>
     ```
 
-You can also use the Fabric8 [Web console](http://fabric8.io/guide/console.html)
-to manage the running pods, view logs and much more.
-
 ### Accessing the REST service
 
 When the example is running, a REST service is available to list the books
 that can be ordered, and as well the order statuses.
 
-If you run the example on a local Fabric8 installation using Vagrant,
-then the REST service is exposed at <http://qs-camel-rest-jpa.vagrant.f8>.
+As it depends on your Kubernetes / OpenShift setup, the hostname for the route
+may vary. You can retrieve it by running the following command in OpenShift:
 
-Notice: As it depends on your OpenShift setup, the hostname (route) might vary.
-Verify with `oc get routes` which hostname is valid for you.
-Add the `-Dfabric8.deploy.createExternalUrls=true` option to your Maven commands
-if you want it to deploy a Route configuration for the service.
+    $ oc get routes -o jsonpath='{range .items[?(@.spec.to.name == "camel-rest-jpa")]}{.spec.host}{"\n"}{end}'
 
 The actual endpoint is using the _context-path_ `camel-rest-jpa/books` and
 the REST service provides two services:
@@ -118,14 +112,14 @@ starting from 1.
 
 You can then access these services from your Web browser, e.g.:
 
-- <http://qs-camel-rest-jpa.vagrant.f8/camel-rest-jpa/books>
-- <http://qs-camel-rest-jpa.vagrant.f8/camel-rest-jpa/books/order/1>
+- <http://\<route_hostname\>/camel-rest-jpa/books>
+- <http://\<route_hostname\>/camel-rest-jpa/books/order/1>
 
 ### Swagger API
 
 The example provides API documentation of the service using Swagger using
 the _context-path_ `camel-rest-jpa/api-doc`. You can access the API documentation
-from your Web browser at <http://qs-camel-rest-jpa.vagrant.f8/camel-rest-jpa/api-doc>.
+from your Web browser at <http://\<route_hostname\>/camel-rest-jpa/api-doc>.
 
 ### More details
 
