@@ -59,8 +59,17 @@ or in OpenShift:
     $ oc new-app --template=mysql-ephemeral
 
 More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html).
+
 You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable
 to the deployment.
+Besides, you may need to relax the security in your cluster as the MySQL container
+requires the `setgid` access right permission. This can be achieved by running the
+following command:
+ 
+    $ oadm policy add-scc-to-group anyuid system:authenticated
+
+That grants all authenticated users access to the `anyuid` SCC. You can find
+more information in [Managing Security Context Constraints](https://docs.openshift.org/latest/admin_guide/manage_scc.html).
 
 The example can then be built and deployed using a single goal:
 
