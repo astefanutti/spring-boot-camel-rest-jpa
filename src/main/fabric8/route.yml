@@ -1,4 +1,6 @@
+metadata:
+  name: camel-rest-jpa
 spec:
   to:
     kind: Service
-    name: spring-boot-camel-rest-j
+    name: camel-rest-jpa

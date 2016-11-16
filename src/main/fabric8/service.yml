@@ -1,0 +1,6 @@
+metadata:
+  name: camel-rest-jpa
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080

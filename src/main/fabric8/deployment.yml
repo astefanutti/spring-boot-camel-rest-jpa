@@ -1,3 +1,5 @@
+metadata:
+  name: camel-rest-jpa
 spec:
   replicas: 1
   template:
