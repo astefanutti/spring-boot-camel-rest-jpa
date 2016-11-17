@@ -18,6 +18,7 @@ package io.fabric8.quickstarts.camel;
 import io.fabric8.annotations.ServiceName;
 import io.fabric8.kubernetes.api.model.Service;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.junit.Test;
@@ -32,12 +33,11 @@ public class KubernetesIntegrationKT {
     KubernetesClient client;
 
     @ArquillianResource
-    @ServiceName("spring-boot-camel-rest-s")
+    @ServiceName("camel-rest-jpa")
     Service service;
 
-    // FIXME: add MySQL service as dependency
-
     @Test
+    @RunAsClient
     public void testAppProvisionsRunningPods() {
         assertThat(client).deployments().pods().isPodReadyForPeriod();
     }

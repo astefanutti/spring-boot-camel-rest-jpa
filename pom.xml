@@ -42,6 +42,10 @@
     <fabric8.maven.plugin.version>3.1.92</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+
+    <!-- MySQL credentials for tests -->
+    <mysql-service-username>username</mysql-service-username>
+    <mysql-service-password>password</mysql-service-password>
   </properties>
 
   <dependencyManagement>
