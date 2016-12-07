@@ -48,16 +48,19 @@ You can then access the REST API directly from your Web browser, e.g.:
 
 #### Prerequisites
 
-It is assumed an OpenShift platform is already running. If not, you can
-find details how to [get started](http://fabric8.io/guide/getStarted/index.html).
+It is assumed an OpenShift platform is already running. The easiest way to setup
+a local single-node OpenShift cluster is to [install Minishift](https://github.com/minishift/minishift#installation) and run:
+
+    $ minishift start
+
 Besides, it is assumed that a MySQL service is already running on the platform.
 You can deploy it using the provided deployment by executing:
 
     $ oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
     $ oc new-app --template=mysql-ephemeral
 
-More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html). You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true`
-as environment variable to the deployment.
+More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html).
+You may need to pass `MYSQL_RANDOM_ROOT_PASSWORD=true` as environment variable to the deployment.
 Besides, you may need to relax the security in your cluster as the MySQL container
 requires the `setgid` access right permission. This can be achieved by running the
 following command:
@@ -96,7 +99,7 @@ OpenShift client tool to inspect the status, e.g.:
 When the example is running, a REST service is available to list the books
 that can be ordered, and as well the order statuses.
 As it depends on your OpenShift setup, the hostname for the route
-may vary. You can retrieve it by running the following command in OpenShift:
+may vary. You can retrieve it by running the following command:
 
     $ oc get routes -o jsonpath='{range .items[?(@.spec.to.name == "camel-rest-jpa")]}{.spec.host}{"\n"}{end}'
 
