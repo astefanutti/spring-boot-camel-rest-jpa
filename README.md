@@ -121,3 +121,39 @@ You can then access these services from your Web browser, e.g.:
 The example provides API documentation of the service using Swagger using
 the _context-path_ `camel-rest-jpa/api-doc`. You can access the API documentation
 from your Web browser at <http://\<route_hostname\>/camel-rest-jpa/api-doc>.
+
+## Test
+
+### Locally
+
+The tests can be executed with:
+
+    $ mvn surefire:test
+
+This starts the application by picking an available port at random and executes the tests.
+
+### OpenShift
+
+This requires to have an OpenShift environment running and the `KUBERNETES_MASTER`
+environment variable pointing to it. Depending on the authentication scheme of your
+environment, you may need to configure the test client access.
+
+Minishift relies on the default [identity provider](https://docs.openshift.com/container-platform/3.3/install_config/configuring_authentication.html#AllowAllPasswordIdentityProvider),
+so that you can create a user for the test execution just by logging in, e.g.:
+
+    $ oc login -u test -p test
+
+And then execute the integration tests with:
+
+    $ mvn failsafe:integration-test
+
+Note that the test user requires to have the `basic-user` role bound, so that it can
+create the project in which the application and the MySQL server get deployed prior
+to the test execution.
+Cluster roles can be viewed as documented in [Viewing cluster policy](https://docs.openshift.com/container-platform/3.3/admin_guide/manage_authorization_policy.html#viewing-cluster-policy).
+
+Finally, it may be handy to keep the project created for the test execution.
+This can be achieved by setting the `namespace.cleanup.enabled` system variable
+to `false`, e.g.:
+
+    $ mvn failsafe:integration-test -Dnamespace.cleanup.enabled=false
