@@ -65,7 +65,7 @@ Besides, you may need to relax the security in your cluster as the MySQL contain
 requires the `setgid` access right permission. This can be achieved by running the
 following command:
  
-    $ oadm policy add-scc-to-group anyuid system:authenticated
+    $ oc adm policy add-scc-to-group anyuid system:authenticated
 
 That grants all authenticated users access to the `anyuid` SCC. You can find
 more information in [Managing Security Context Constraints](https://docs.openshift.org/latest/admin_guide/manage_scc.html).
