@@ -37,7 +37,7 @@ import static io.fabric8.kubernetes.api.KubernetesHelper.getServiceURL;
 import static io.fabric8.kubernetes.assertions.Assertions.assertThat;
 
 @RunWith(Arquillian.class)
-public class KubernetesIntegrationKT {
+public class ApplicationOpenshiftIT {
 
     @ArquillianResource
     private KubernetesClient client;
