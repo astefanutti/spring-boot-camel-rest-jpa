@@ -150,7 +150,7 @@ And then execute the integration tests with:
 Note that the test user requires to have the `basic-user` role bound, so that it can
 create the project in which the application and the MySQL server get deployed prior
 to the test execution.
-Cluster roles can be viewed as documented in [Viewing cluster policy](https://docs.openshift.com/container-platform/3.3/admin_guide/manage_authorization_policy.html#viewing-cluster-policy).
+Cluster roles can be viewed as documented in [Viewing Cluster Policy](https://docs.openshift.com/container-platform/3.3/admin_guide/manage_authorization_policy.html#viewing-cluster-policy).
 
 Finally, it may be handy to keep the project created for the test execution.
 This can be achieved by setting the `namespace.cleanup.enabled` system variable
