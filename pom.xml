@@ -172,9 +172,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.19.1</version>
         <configuration>
           <systemPropertyVariables>
-            <!-- FIXME: clean-up fails with basic-user role -->
+            <!-- FIXME: clean-up fails on OpenShift with basic-user role -->
             <namespace.cleanup.enabled>false</namespace.cleanup.enabled>
           </systemPropertyVariables>
         </configuration>
