@@ -4,6 +4,7 @@
                http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
   <extension qualifier="kubernetes">
-    <property name="env.dependencies">src/test/fabric8/mysql-template.json</property>
+    <!-- FIXME: find a way to use the Kubernetes MySQL deployment when running on k8s -->
+    <property name="env.dependencies">src/test/fabric8/mysql-openshift.json</property>
   </extension>
 </arquillian>
