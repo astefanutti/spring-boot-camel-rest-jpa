@@ -134,9 +134,9 @@ This starts the application by picking an available port at random and executes 
 
 ### OpenShift
 
-This requires to have an OpenShift environment running and the `KUBERNETES_MASTER`
-environment variable pointing to it. Depending on the authentication scheme of your
-environment, you may need to configure the test client access.
+This requires to have an OpenShift environment running.
+Depending on the authentication scheme of your environment, you may need to configure
+the test client access.
 
 Minishift relies on the default [identity provider](https://docs.openshift.com/container-platform/3.3/install_config/configuring_authentication.html#AllowAllPasswordIdentityProvider),
 so that you can create a user for the test execution just by logging in, e.g.:
