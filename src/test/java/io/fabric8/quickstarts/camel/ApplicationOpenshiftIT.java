@@ -15,9 +15,8 @@
  */
 package io.fabric8.quickstarts.camel;
 
-import io.fabric8.annotations.ServiceName;
-import io.fabric8.kubernetes.api.model.Service;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.openshift.client.OpenShiftClient;
 import org.assertj.core.api.Assertions;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
@@ -33,7 +32,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static io.fabric8.kubernetes.api.KubernetesHelper.getServiceURL;
 import static io.fabric8.kubernetes.assertions.Assertions.assertThat;
 
 @RunWith(Arquillian.class)
@@ -41,10 +39,6 @@ public class ApplicationOpenshiftIT {
 
     @ArquillianResource
     private KubernetesClient client;
-
-    @ArquillianResource
-    @ServiceName("camel-rest-jpa")
-    private Service service;
 
     @Test
     @RunAsClient
@@ -58,7 +52,7 @@ public class ApplicationOpenshiftIT {
     @InSequence(2)
     public void booksTest() {
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<List<Book>> response = restTemplate.exchange(getServiceURL(service) + "/camel-rest-jpa/books",
+        ResponseEntity<List<Book>> response = restTemplate.exchange("http://" + client.adapt(OpenShiftClient.class).routes().withName("camel-rest-jpa").get().getSpec().getHost() + "/camel-rest-jpa/books",
             HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>(){});
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Book> books = response.getBody();
