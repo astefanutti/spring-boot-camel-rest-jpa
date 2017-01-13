@@ -107,7 +107,7 @@ The actual endpoint is using the _context-path_ `camel-rest-jpa/books` and
 the REST service provides two services:
 
 - `books`: to list all the available books that can be ordered,
-- `order/{id}`: to output order status for the given order `id`.
+- `books/order/{id}`: to output order status for the given order `id`.
 
 The example automatically creates new orders with a running order `id`
 starting from 1.
