@@ -81,6 +81,10 @@ You can then inspect the status of the deployment, e.g.:
     $ kubectl logs <pod_name>
     ```
 
+#### Runtime
+
+:pencil2:
+
 ### OpenShift
 
 #### Prerequisites
@@ -168,6 +172,10 @@ The tests can be executed with:
     $ mvn surefire:test
 
 This starts the application by picking an available port at random and executes the tests.
+
+### Kubernetes
+
+:pencil2:
 
 ### OpenShift
 
