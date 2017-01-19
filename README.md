@@ -44,6 +44,43 @@ You can then access the REST API directly from your Web browser, e.g.:
 - <http://localhost:8080/camel-rest-jpa/books>
 - <http://localhost:8080/camel-rest-jpa/books/order/1>
 
+### Kubernetes
+
+#### Prerequisites
+
+It is assumed a Kubernetes cluster is already running. The easiest way to setup
+a local single-node Kubernetes cluster is to [install Minikube](https://github.com/kubernetes/minikube#installation) and run:
+
+    $ minikube start
+
+Besides, it is assumed that a MySQL service is already running on the platform.
+You can deploy it using the provided deployment by executing:
+
+    $ kubectl create -f https://raw.githubusercontent.com/astefanutti/spring-boot-camel-rest-jpa/master/src/test/fabric8/mysql-kubernetes.yaml
+
+You'll need to update the `MYSQL_USER` and `MYSQL_PASSWORD` environment variables in the template.
+
+#### Deployment
+
+The example can be deployed by executing the following command:
+
+    $ mvn fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password>
+
+The `username` and `password` system properties correspond to the credentials
+used when deploying the MySQL database service.
+
+You can then inspect the status of the deployment, e.g.:
+
+- To list all the running pods:
+    ```
+    $ kubectl get pods
+    ```
+
+- Then find the name of the pod that runs this example, and output the logs from the running pod with:
+    ```
+    $ kubectl logs <pod_name>
+    ```
+
 ### OpenShift
 
 #### Prerequisites
