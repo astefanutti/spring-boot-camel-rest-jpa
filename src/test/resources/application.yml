@@ -2,6 +2,10 @@ camel:
   springboot:
     name: CamelRestJpa
 
+logging:
+  level:
+    root: INFO
+
 quickstart:
   generateOrderPeriod: 1s
   processOrderPeriod: 3s

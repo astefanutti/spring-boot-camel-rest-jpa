@@ -3,6 +3,10 @@ camel:
     # The Camel context name
     name: CamelRestJpa
 
+logging:
+  level:
+    root: INFO
+
 management:
   # Binding health checks to a different port
   port: 8081
