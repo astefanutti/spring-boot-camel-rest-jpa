@@ -7,7 +7,7 @@ cache:
   - $HOME/.m2
 
 install:
-  - mvn clean install -Dmaven.test.skip.exec
+  - mvn clean package -Dfabric8.skip -Dmaven.test.skip.exec
 
 script:
   - mvn test
