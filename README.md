@@ -1,3 +1,8 @@
+[![Build Status][Travis badge]][Travis build]
+
+[Travis badge]: https://travis-ci.org/astefanutti/spring-boot-camel-rest-jpa.svg
+[Travis build]: https://travis-ci.org/astefanutti/spring-boot-camel-rest-jpa
+
 # Spring Boot Camel REST / JPA Example
 
 This example demonstrates how to use JPA and Camel's REST DSL
