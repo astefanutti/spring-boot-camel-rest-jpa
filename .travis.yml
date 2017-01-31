@@ -1,0 +1,21 @@
+sudo: false
+
+language: java
+
+cache:
+  directories:
+  - $HOME/.m2
+
+install:
+  - mvn clean install -Dmaven.test.skip.exec
+
+script:
+  - mvn test
+
+jdk:
+  - oraclejdk8
+
+notifications:
+  email:
+    recipients:
+      - antonin.stefanutti@gmail.com
