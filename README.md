@@ -113,6 +113,18 @@ the `setgid` access right permission. This can be achieved by running the follow
 
 That grants all authenticated users access to the `anyuid` SCC. You can find
 more information in [Managing Security Context Constraints](https://docs.openshift.com/container-platform/3.3/admin_guide/manage_scc.html).
+For this command to run successfully, you would need to be logged in with a user that has the
+`cluster-admin` role bound, e.g. with the default system account:
+
+    $ oc login https://$(minishift ip):8443 -u system:admin
+
+In case you need / want to access the Web console with a privileged account, you can create
+an admin user account with:
+
+```sh
+$ oc adm policy add-cluster-role-to-user cluster-admin admin
+# oc login -u admin -p admin
+```
 
 #### Deployment
 
