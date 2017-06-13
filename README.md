@@ -169,14 +169,14 @@ The example automatically creates new orders with a running order `id`
 starting from 1.
 You can then access these services from your Web browser, e.g.:
 
-- <http://\<route_hostname\>/camel-rest-jpa/books>
-- <http://\<route_hostname\>/camel-rest-jpa/books/order/1>
+- [http://<route_hostname>/camel-rest-jpa/books](http://route_hostname/camel-rest-jpa/books)
+- [http://<route_hostname>/camel-rest-jpa/books/order/1](http://route_hostname/camel-rest-jpa/books/order/1)
 
 ##### Swagger API
 
 The example provides API documentation of the service using Swagger using
 the _context-path_ `camel-rest-jpa/api-doc`. You can access the API documentation
-from your Web browser at <http://\<route_hostname\>/camel-rest-jpa/api-doc>.
+from your Web browser at [http://<route_hostname>/camel-rest-jpa/api-doc](http://route_hostname/camel-rest-jpa/api-doc).
 
 ## Test
 
