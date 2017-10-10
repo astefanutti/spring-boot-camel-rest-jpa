@@ -105,14 +105,14 @@ You can deploy it using the provided deployment by executing:
     $ oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
     $ oc new-app --template=mysql-ephemeral -p MYSQL_VERSION=5.6 -p MYSQL_USER=<username> -p MYSQL_PASSWORD=<password>
 
-More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html).
+More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.6/using_images/db_images/mysql.html).
 You may need to relax the security in your cluster as the MySQL container requires
 the `setgid` access right permission. This can be achieved by running the following command:
 
     $ oc adm policy add-scc-to-group anyuid system:authenticated
 
 That grants all authenticated users access to the `anyuid` SCC. You can find
-more information in [Managing Security Context Constraints](https://docs.openshift.com/container-platform/3.3/admin_guide/manage_scc.html).
+more information in [Managing Security Context Constraints](https://docs.openshift.com/container-platform/3.6/admin_guide/manage_scc.html).
 For this command to run successfully, you would need to be logged in with a user that has the
 `cluster-admin` role bound, e.g. with the default system account:
 
@@ -198,7 +198,7 @@ This requires to have an OpenShift environment running.
 Depending on the authentication scheme of your environment, you may need to configure
 the test client access.
 
-Minishift relies on the default [identity provider](https://docs.openshift.com/container-platform/3.3/install_config/configuring_authentication.html#AllowAllPasswordIdentityProvider),
+Minishift relies on the default [identity provider](https://docs.openshift.com/container-platform/3.6/install_config/configuring_authentication.html#AllowAllPasswordIdentityProvider),
 so that you can create a user for the test execution just by logging in, e.g.:
 
     $ oc login -u test -p test
@@ -210,7 +210,7 @@ And then execute the integration tests with:
 Note that the test user requires to have the `basic-user` role bound, so that it can
 create the project in which the application and the MySQL server get deployed prior
 to the test execution.
-Cluster roles can be viewed as documented in [Viewing Cluster Policy](https://docs.openshift.com/container-platform/3.3/admin_guide/manage_authorization_policy.html#viewing-cluster-policy).
+Cluster roles can be viewed as documented in [Viewing Cluster Policy](https://docs.openshift.com/container-platform/3.6/admin_guide/manage_authorization_policy.html#viewing-cluster-policy).
 
 Finally, it may be handy to keep the project created for the test execution.
 This can be achieved by setting the `namespace.cleanup.enabled` system variable
