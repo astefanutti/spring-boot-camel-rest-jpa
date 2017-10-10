@@ -130,7 +130,7 @@ $ oc adm policy add-cluster-role-to-user cluster-admin admin
 
 The example can be deployed by executing the following command:
 
-    $ mvn fabric8:run -Dmysql-service-username=<username> -Dmysql-service-password=<password>
+    $ mvn fabric8:deploy -Dmysql-service-username=<username> -Dmysql-service-password=<password>
 
 The `username` and `password` system properties correspond to the credentials
 used when deploying the MySQL database service.
