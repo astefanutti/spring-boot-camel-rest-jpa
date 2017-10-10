@@ -15,7 +15,6 @@
  */
 package io.fabric8.quickstarts.camel;
 
-import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.openshift.client.OpenShiftClient;
 import org.assertj.core.api.Assertions;
 import org.jboss.arquillian.container.test.api.RunAsClient;
@@ -38,7 +37,7 @@ import static io.fabric8.kubernetes.assertions.Assertions.assertThat;
 public class ApplicationOpenshiftIT {
 
     @ArquillianResource
-    private KubernetesClient client;
+    private OpenShiftClient client;
 
     @Test
     @RunAsClient
@@ -52,7 +51,7 @@ public class ApplicationOpenshiftIT {
     @InSequence(2)
     public void booksTest() {
         TestRestTemplate restTemplate = new TestRestTemplate();
-        ResponseEntity<List<Book>> response = restTemplate.exchange("http://" + client.adapt(OpenShiftClient.class).routes().withName("camel-rest-jpa").get().getSpec().getHost() + "/camel-rest-jpa/books",
+        ResponseEntity<List<Book>> response = restTemplate.exchange("http://" + client.routes().withName("camel-rest-jpa").get().getSpec().getHost() + "/camel-rest-jpa/books",
             HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>(){});
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Book> books = response.getBody();

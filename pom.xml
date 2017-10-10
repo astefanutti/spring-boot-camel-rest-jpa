@@ -58,6 +58,14 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.arquillian.cube</groupId>
+        <artifactId>arquillian-cube-bom</artifactId>
+        <version>1.5.2-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -117,13 +125,23 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.fabric8</groupId>
-      <artifactId>fabric8-arquillian</artifactId>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-openshift</artifactId>
+      <scope>test</scope>
+   </dependency>
+   <dependency>
+      <groupId>org.arquillian.cube</groupId>
+      <artifactId>arquillian-cube-containerless</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
+      <groupId>io.fabric8</groupId>
+      <artifactId>openshift-client</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-assertions</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -176,7 +194,7 @@
         <configuration>
           <systemPropertyVariables>
             <!-- FIXME: clean-up fails on OpenShift with basic-user role -->
-            <namespace.cleanup.enabled>false</namespace.cleanup.enabled>
+            <!--<namespace.cleanup.enabled>false</namespace.cleanup.enabled>-->
           </systemPropertyVariables>
         </configuration>
       </plugin>
