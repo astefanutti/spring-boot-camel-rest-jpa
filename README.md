@@ -15,7 +15,7 @@ via the REST API.
 
 This example relies on the [Fabric8 Maven plugin](https://maven.fabric8.io)
 for its build configuration and uses the
-[fabric8 Java base image](https://github.com/fabric8io/base-images#java-base-images).
+[fabric8 Java base image](https://github.com/fabric8io-images/java).
 It relies on Swagger to expose the API documentation of the REST service.
 
 ## Build
