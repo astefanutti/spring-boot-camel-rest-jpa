@@ -2,6 +2,11 @@ camel:
   springboot:
     # The Camel context name
     name: CamelRestJpa
+  component:
+    servlet:
+      mapping:
+        enabled: true
+        context-path: /camel-rest-jpa/*
 
 logging:
   level:
