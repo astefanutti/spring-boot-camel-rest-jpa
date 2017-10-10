@@ -103,7 +103,7 @@ Besides, it is assumed that a MySQL service is already running on the platform.
 You can deploy it using the provided deployment by executing:
 
     $ oc create -f https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
-    $ oc new-app --template=mysql-ephemeral -p MYSQL_VERSION=5.6,MYSQL_USER=<username>,MYSQL_PASSWORD=<password>
+    $ oc new-app --template=mysql-ephemeral -p MYSQL_VERSION=5.6 -p MYSQL_USER=<username> -p MYSQL_PASSWORD=<password>
 
 More information can be found in [using the MySQL database image](https://docs.openshift.com/container-platform/3.3/using_images/db_images/mysql.html).
 You may need to relax the security in your cluster as the MySQL container requires
