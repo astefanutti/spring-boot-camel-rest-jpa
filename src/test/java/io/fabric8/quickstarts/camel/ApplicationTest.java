@@ -74,10 +74,10 @@ public class ApplicationTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Book> books = response.getBody();
         assertThat(books).hasSize(2);
-        assertThat(books).element(0)
+        assertThat(books.get(0))
             .hasFieldOrPropertyWithValue("item", "Camel")
             .hasFieldOrPropertyWithValue("description", "Camel in Action");
-        assertThat(books).element(1)
+        assertThat(books.get(1))
             .hasFieldOrPropertyWithValue("item", "ActiveMQ")
             .hasFieldOrPropertyWithValue("description", "ActiveMQ in Action");
     }

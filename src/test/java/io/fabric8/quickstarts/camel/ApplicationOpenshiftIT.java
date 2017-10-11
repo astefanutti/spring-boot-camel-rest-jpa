@@ -57,10 +57,10 @@ public class ApplicationOpenshiftIT {
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         List<Book> books = response.getBody();
         Assertions.assertThat(books).hasSize(2);
-        Assertions.assertThat(books).element(0)
+        Assertions.assertThat(books.get(0))
             .hasFieldOrPropertyWithValue("item", "Camel")
             .hasFieldOrPropertyWithValue("description", "Camel in Action");
-        Assertions.assertThat(books).element(1)
+        Assertions.assertThat(books.get(1))
             .hasFieldOrPropertyWithValue("item", "ActiveMQ")
             .hasFieldOrPropertyWithValue("description", "ActiveMQ in Action");
     }
