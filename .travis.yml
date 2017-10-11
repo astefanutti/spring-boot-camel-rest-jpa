@@ -6,6 +6,10 @@ cache:
   directories:
   - $HOME/.m2
 
+branches:
+  only:
+    - master
+
 install:
   - mvn clean package -Dfabric8.skip -Dmaven.test.skip.exec
 
