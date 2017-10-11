@@ -25,8 +25,10 @@ The example can be built with:
     $ mvn install
 
 This automatically generates the application resource descriptors and builds
-the Docker image, so it requires access to a Docker daemon, relying on the
-`DOCKER_HOST` environment variable by default.
+the Docker image against a running Docker daemon (which must be accessible either
+via Unix Socket or with the URL set in `DOCKER_HOST`). Alternatively, when connected
+to an OpenShift cluster, then a Docker build is performed on OpenShift which at the end
+creates an [ImageStream](https://docs.openshift.com/container-platform/3.6/architecture/core_concepts/builds_and_image_streams.html).
 
 ## Run
 
