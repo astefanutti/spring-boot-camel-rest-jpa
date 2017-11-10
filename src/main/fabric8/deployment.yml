@@ -13,6 +13,10 @@ spec:
               cpu: "1.0"
               memory: 256Mi
           env:
+          # Tomcat
+          - name: SPRING_APPLICATION_JSON
+            value: '{"server":{"tomcat":{"max-threads":1}}}'
+          # MySQL
           - name: MYSQL_SERVICE_NAME
             value: mysql
           - name: MYSQL_SERVICE_DATABASE
